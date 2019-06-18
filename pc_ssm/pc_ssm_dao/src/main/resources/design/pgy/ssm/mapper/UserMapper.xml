@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="design.pgy.ssm.mapper.UserMapper">
+
+    <resultMap id="findByNameMap" type="UserInfo">
+        <result property="id" column="userId"/>
+        <result property="email" column="email"/>
+        <result property="userName" column="userName"/>
+        <result property="password" column="password"/>
+        <result property="phoneNum" column="phoneNum"/>
+        <result property="status" column="status"/>
+        <collection property="roleList" ofType="Role">
+            <result property="id" column="roleId"/>
+            <result property="roleName" column="roleName"/>
+            <result property="roleDesc" column="roleDesc"/>
+        </collection>
+    </resultMap>
+    <select id="findByName" parameterType="String" resultMap="findByNameMap">
+        select * from users u,role r,users_role ur where u.id = ur.userid and r.id = ur.roleid and u.username = #{username}
+    </select>
+
+</mapper>

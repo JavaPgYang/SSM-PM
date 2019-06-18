@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="design.pgy.ssm.mapper.OrdersMapper">
+
+    <resultMap id="findAllMap" type="Orders">
+        <id column="id" property="id"/>
+        <result property="orderNum" column="orderNum"/>
+        <result property="orderTime" column="orderTime"/>
+        <result property="peopleCount" column="peopleCount"/>
+        <result property="orderDesc" column="orderDesc"/>
+        <result property="payType" column="payType"/>
+        <result property="orderStatus" column="orderStatus"/>
+        <association property="product" javaType="Product">
+            <id property="id" column="productId"/>
+            <result property="productName" column="productName"/>
+            <result property="productPrice" column="productPrice"/>
+        </association>
+    </resultMap>
+    <select id="findAll" resultMap="findAllMap">
+        select o.*,p.productname,p.productprice from orders o,product p where o.productid = p.id
+    </select>
+
+    <resultMap id="findByIdMap" type="Orders">
+        <result property="id" column="orderId"/>
+        <result property="orderNum" column="orderNum"/>
+        <result property="orderTime" column="orderTime"/>
+        <result property="peopleCount" column="peopleCount"/>
+        <result property="orderDesc" column="orderDesc"/>
+        <result property="payType" column="payType"/>
+        <result property="orderStatus" column="orderStatus"/>
+        <association property="product" javaType="Product">
+            <result property="productName" column="productName"/>
+            <result property="cityName" column="cityName"/>
+            <result property="departureTime" column="departureTime"/>
+            <result property="productPrice" column="productPrice"/>
+        </association>
+        <association property="member" javaType="Member">
+            <result property="nickname" column="nickname"/>
+            <result property="name" column="mname"/>
+            <result property="phoneNum" column="phoneNum"/>
+            <result property="email" column="email"/>
+        </association>
+        <collection property="travellerList" ofType="Traveller">
+            <result property="travellerType" column="travellerType"/>
+            <result property="name" column="name"/>
+            <result property="sex" column="sex"/>
+            <result property="phoneNum" column="phoneNum"/>
+            <result property="credentialsType" column="credentialsType"/>
+            <result property="credentialsNum" column="credentialsNum"/>
+        </collection>
+    </resultMap>
+    <select id="findById" resultMap="findByIdMap" parameterType="String">
+        select *
+        from order_traveller ot,traveller t,
+              (select o.*, m.name mname, m.nickname, m.phonenum, m.email,p.productname,p.cityname,p.departuretime,p.productprice,o.id ooid
+              from orders o,product p,member m
+              where o.productid = p.id and o.memberid = m.id) omp
+        where omp.ooid = ot.orderid and t.id = ot.travellerid and omp.ooid = #{id}
+    </select>
+
+</mapper>
