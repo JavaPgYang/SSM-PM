@@ -8,16 +8,29 @@ import design.pgy.ssm.mapper.OrdersMapper;
 import design.pgy.ssm.mapper.ProductMapper;
 import design.pgy.ssm.mapper.UserMapper;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:spring/application_mapper.xml")
 public class MapperTest {
+
+    @Autowired
+    private ProductMapper productMapper;
+
+    @Autowired
+    private OrdersMapper ordersMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Test
     public void test() {
-        ClassPathXmlApplicationContext app = new ClassPathXmlApplicationContext("spring/application_mapper.xml");
-        ProductMapper productMapper = app.getBean(ProductMapper.class);
         List<Product> productList = productMapper.findAll();
         for (Product product : productList) {
             System.out.println(product);
@@ -26,8 +39,6 @@ public class MapperTest {
 
     @Test
     public void test1() {
-        ClassPathXmlApplicationContext app = new ClassPathXmlApplicationContext("spring/application_mapper.xml");
-        OrdersMapper ordersMapper = app.getBean(OrdersMapper.class);
         List<Orders> ordersList = ordersMapper.findAll();
         for (Orders orders : ordersList) {
             System.out.println(orders);
@@ -36,17 +47,14 @@ public class MapperTest {
 
     @Test
     public void test2() {
-        ClassPathXmlApplicationContext app = new ClassPathXmlApplicationContext("spring/application_mapper.xml");
-        UserMapper userMapper = app.getBean(UserMapper.class);
-        UserInfo userInfo = userMapper.findByName("tom");
+        UserInfo userInfo = userMapper.findByName("lucy");
+        System.out.println(userInfo);
+    }
 
-        System.out.println(userInfo.getUserName() + "_" + userInfo.getPassword());
-
-        List<Role> roleList = userInfo.getRoleList();
-        for (Role role : roleList) {
-            System.out.println(role.getRoleName());
-        }
-
+    @Test
+    public void test3() {
+        UserInfo userInfo = userMapper.findById("001");
+        System.out.println(userInfo);
     }
 
 }

@@ -19,4 +19,28 @@
         select * from users u,role r,users_role ur where u.id = ur.userid and r.id = ur.roleid and u.username = #{username}
     </select>
 
+    <select id="findAll" resultType="UserInfo">
+        select * from users
+    </select>
+
+    <select id="save" parameterType="UserInfo">
+        insert into users(email,username,password,phoneNum,status) values(#{email},#{userName},#{password},#{phoneNum},#{status})
+    </select>
+
+    <resultMap id="findByIdMap" type="UserInfo">
+        <result property="userName" column="userName"/>
+        <collection property="roleList" ofType="Role" javaType="list">
+            <result property="roleName" column="roleName"/>
+            <result property="roleDesc" column="roleDesc"/>
+            <collection property="permissionList" ofType="Permission">
+                <result property="permissionName" column="permissionName"/>
+                <result property="url" column="url"/>
+            </collection>
+        </collection>
+    </resultMap>
+    <select id="findById" resultMap="findByIdMap" parameterType="String">
+         select *
+         from users u, users_role ur, role r, role_permission rp, permission p
+         where u.id = ur.userid and r.id = ur.roleid and r.id = rp.roleid and p.id = rp.permissionid and u.id = #{id}
+    </select>
 </mapper>

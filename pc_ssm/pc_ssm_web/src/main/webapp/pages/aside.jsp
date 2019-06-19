@@ -49,17 +49,17 @@
                 </a>
                 <ul class="treeview-menu">
                     <li id="system-setting1">
-                        <a href="all-system-setting-edit.html">
+                        <a href="${pageContext.request.contextPath}/user/findAll">
                             <i class="fa fa-circle-o"></i> 用户管理
                         </a>
                     </li>
                     <li id="system-setting2">
-                        <a href="all-system-setting-edit.html">
+                        <a href="${pageContext.request.contextPath}/role/findAll">
                             <i class="fa fa-circle-o"></i> 角色管理
                         </a>
                     </li>
                     <li id="system-setting3">
-                        <a href="all-system-setting-edit.html">
+                        <a href="${pageContext.request.contextPath}/permission/findAll">
                             <i class="fa fa-circle-o"></i> 资源权限管理
                         </a>
                     </li>

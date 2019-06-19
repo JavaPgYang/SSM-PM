@@ -1,10 +1,13 @@
 package design.pgy.ssm.domain;
 
+import java.util.List;
+
 public class Role {
 
     private String id;
     private String roleName;
     private String roleDesc;
+    private List<Permission> permissionList;
 
     public String getId() {
         return id;
@@ -29,4 +32,13 @@ public class Role {
     public void setRoleDesc(String roleDesc) {
         this.roleDesc = roleDesc;
     }
+
+    public List<Permission> getPermissionList() {
+        return permissionList;
+    }
+
+    public void setPermissionList(List<Permission> permissionList) {
+        this.permissionList = permissionList;
+    }
+
 }

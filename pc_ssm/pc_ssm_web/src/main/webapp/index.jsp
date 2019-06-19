@@ -11,7 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-<%--<h1>正式启动</h1>--%>
 <jsp:forward page="${pageContext.request.contextPath}/pages/main.jsp"/>
 </body>
 </html>
