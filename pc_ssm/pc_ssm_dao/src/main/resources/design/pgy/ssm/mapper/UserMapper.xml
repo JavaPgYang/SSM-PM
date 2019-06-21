@@ -43,4 +43,13 @@
          from users u, users_role ur, role r, role_permission rp, permission p
          where u.id = ur.userid and r.id = ur.roleid and r.id = rp.roleid and p.id = rp.permissionid and u.id = #{id}
     </select>
+
+    <select id="findUserByIdAndAllRole" parameterType="String" resultType="Role">
+        select * from role where id not in(select roleId from users_role ur,users u where ur.userid = u.id and u.id = #{uid})
+    </select>
+
+    <insert id="addRoleToUser" parameterType="String">
+        insert into users_role values(#{param1},#{param2})
+    </insert>
+
 </mapper>

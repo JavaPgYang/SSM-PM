@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
@@ -15,7 +16,7 @@
                 <img src="${pageContext.request.contextPath}/img/user2-160x160.jpg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>xxx</p>
+                <p><security:authentication property="principal.username"/></p>
                 <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
             </div>
         </div>
@@ -48,11 +49,13 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
+                    <security:authorize access="hasRole('ROLE_ADMIN')">
                     <li id="system-setting1">
                         <a href="${pageContext.request.contextPath}/user/findAll">
                             <i class="fa fa-circle-o"></i> 用户管理
                         </a>
                     </li>
+                    </security:authorize>
                     <li id="system-setting2">
                         <a href="${pageContext.request.contextPath}/role/findAll">
                             <i class="fa fa-circle-o"></i> 角色管理
@@ -64,7 +67,7 @@
                         </a>
                     </li>
                     <li id="system-setting4">
-                        <a href="all-system-setting-edit.html">
+                        <a href="${pageContext.request.contextPath}/sysLog/findAll">
                             <i class="fa fa-circle-o"></i> 访问日志
                         </a>
                     </li>

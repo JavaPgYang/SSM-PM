@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import design.pgy.ssm.domain.Orders;
 import design.pgy.ssm.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ public class OrdersController {
     private OrdersService ordersService;
 
     @RequestMapping("/findAll")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView findAll(@RequestParam(name = "page", required = true, defaultValue = "1") Integer page, @RequestParam(name = "size", required = true, defaultValue = "4") Integer size) {
         ModelAndView modelAndView = new ModelAndView();
 

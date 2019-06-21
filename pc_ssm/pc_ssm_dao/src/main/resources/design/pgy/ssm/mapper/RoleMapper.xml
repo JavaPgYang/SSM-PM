@@ -9,4 +9,12 @@
     <insert id="save" parameterType="Role">
         insert into role(roleName,roleDesc) values(#{roleName},#{roleDesc})
     </insert>
+
+    <select id="findRoleByIdAndAllPermission" parameterType="String" resultType="Permission">
+        select * from permission where id not in (select permissionId from role_permission rp,role r where rp.roleid = r.id and r.id = #{rid})
+    </select>
+
+    <insert id="addPermissionToRole" parameterType="String">
+        insert into role_permission values (#{param1},#{param2})
+    </insert>
 </mapper>

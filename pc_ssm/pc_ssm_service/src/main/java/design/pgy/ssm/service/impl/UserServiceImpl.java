@@ -58,4 +58,16 @@ public class UserServiceImpl implements UserService {
     public UserInfo findById(String id) {
         return userMapper.findById(id);
     }
+
+    @Override
+    public List<Role> findUserByIdAndAllRole(String uid) {
+        return userMapper.findUserByIdAndAllRole(uid);
+    }
+
+    @Override
+    public void addRoleToUser(String uid, String[] rids) {
+        for (String rid : rids) {
+            userMapper.addRoleToUser(uid,rid);
+        }
+    }
 }

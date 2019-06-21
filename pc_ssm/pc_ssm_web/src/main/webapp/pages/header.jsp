@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <header class="main-header">
 
     <!-- Logo -->
@@ -31,7 +32,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="${pageContext.request.contextPath}/img/user2-160x160.jpg" class="user-image"
                              alt="User Image">
-                        <span class="hidden-xs">xxx</span>
+                        <span class="hidden-xs"><security:authentication property="principal.username"/></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
@@ -39,7 +40,7 @@
                             <img src="${pageContext.request.contextPath}/img/user2-160x160.jpg" class="img-circle"
                                  alt="User Image">
                             <p>
-                                xxx - 数据管理员
+                                <security:authentication property="principal.username"/> - 数据管理员
                                 <small>最后登录 11:20AM</small>
                             </p>
                         </li>
